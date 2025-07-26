@@ -1,5 +1,6 @@
-# SDQ-Scoring
-## Scoring the Strengths &amp; Difficulties Questionnaire in R
+# SDQ-Scoring in R
+## Scoring the Strengths &amp; Difficulties Questionnaire for age 4-17 or 18+
+### Read **SDQ_English(UK)_4-17scoring.pdf** (stpn.uk, 2016) in the repository for detailed instructions on administering and scoring the questionnaire (see note below)
 
 The scoring algorithm is based on the 25 variables plus impact items for each questionnaire. The variable names are as follows:</br>
 
