@@ -3,7 +3,7 @@
 ###################################################
 
 #Adapted form source: https://sdqinfo.org/c9.html
-
+#a .csv file with individual responses in each row, and SDQ items in each column. Refer to READ.me for naming conventions.
 ### Run the following to begin analysis ###
 
 #Set working directory to data file location
@@ -49,8 +49,8 @@ df_Score <- df %>%
 #Internalising and Externalising Scores:
 df_Score <- df_Score %>%
   mutate(
-    pexternal = pconduct + phyper, #Externalising: Conduct + Hyperactivity
-    pinternal = pemotion + ppeer) #Internalising: Emotional + Peer Problems
+    pexternal = conduct + hyper, #Externalising: Conduct + Hyperactivity
+    pinternal = emotion + peer) #Internalising: Emotional + Peer Problems
 
 #Summary statistics for total difficulties
 df_Score %>% 
