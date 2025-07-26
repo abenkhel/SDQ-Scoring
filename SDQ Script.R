@@ -1,19 +1,20 @@
 ###################################################
 ##### Strengths & Difficulties Questionnaire ######
 ###################################################
+#Change YOUR_DATA_FILENAME to file name of your data (.csv file)
 
 #Adapted form source: https://sdqinfo.org/c9.html
 #a .csv file with individual responses in each row, and SDQ items in each column. Refer to READ.me for naming conventions.
 ### Run the following to begin analysis ###
 
 #Set working directory to data file location
-library("tidyverse")
-library("dplyr")
+install.packages("tidyverse") #Install once if not already installed
+library("tidyverse") #Load tidyverse (includes dplyr, readr, etc.)
 
 #Load data
-df <- read_csv("SDQ Data.csv") #Change file name
-head(df)
-names(df)
+df <- read_csv("YOUR_DATA_FILENAME.csv") #Change YOUR_DATA_FILENAME to file name of your data (.csv file)
+head(df) #Shows first few rows of your data
+names(df) #Check if column names match the naming conventions on the READ.me
 
 #Function to return NA if "at least 3 items per scale" is not met
 score_scale <- function(items) {
@@ -28,11 +29,11 @@ score_scale <- function(items) {
 df_Score <- df %>%
   #Reverse-code the following 5 items
   mutate(
-    qobeys   = recode(obeys, '0'=2, '1'=1, '2'=0),
-    qreflect = recode(reflect, '0'=2, '1'=1, '2'=0),
-    qattends = recode(attends, '0'=2, '1'=1, '2'=0),
-    qfriend  = recode(friend, '0'=2, '1'=1, '2'=0),
-    qpopular = recode(popular, '0'=2, '1'=1, '2'=0)
+    qobeys = recode(obeys, `0`=2, `1`=1, `2`=0),
+    qreflect = recode(reflect, `0`=2, `1`=1, `2`=0),
+    qattends = recode(attends, `0`=2, `1`=1, `2`=0),
+    qfriend  = recode(friend, `0`=2, `1`=1, `2`=0),
+    qpopular = recode(popular, `0`=2, `1`=1, `2`=0),
   ) %>%
   #Calculate scale scores
   rowwise() %>%
@@ -68,7 +69,7 @@ write.csv(df_Score, "SDQ R Scoring.csv") #Export output
 #############################
 ## Checking Missing values ##
 #############################
-
+#Sense check:
 #To check rows of data with a missing value and count of how are missing in each domain (5 items in each category):
 #Missing count per category for each row (last 5 columns of df_missing)
 df_missing <- df %>%
@@ -125,7 +126,7 @@ df_Cat <- df_Score %>%
       peer == 4 ~ "High",
       peer <= 10 ~ "Very high",
       TRUE ~ NA_character_),
-    #Prosocial (note: reverse logic - lower = more concern)
+    #Prosocial (note: reverse logic; lower = more concern)
     prosoc_cat = case_when(
       prosoc >= 8 ~ "Close to average",
       prosoc == 7 ~ "Slightly lowered",
